@@ -1,0 +1,16 @@
+.milista {
+    height: 250px;
+    overflow: auto;
+}
+
+.miitem {
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.miauto {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-right: 5px!important;
+    padding-left: 5px!important;
+}

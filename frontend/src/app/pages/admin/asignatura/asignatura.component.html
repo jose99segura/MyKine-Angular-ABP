@@ -1,0 +1,91 @@
+<div class="animate__animated animate__fadeInRight animate__faster">
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <div>
+                    <button class="btn btn-info m-r-10" [disabled]="!datosForm.pristine" routerLink="/admin/asignaturas">Volver</button>
+                    <div class="float-right">
+                        <button class="btn btn-primary" [disabled]="(!datosForm.pristine || (esnuevo()))" (click)="nuevo()">Nuevo<i class="fa fa-plus m-l-10"></i></button>
+                    </div>
+                </div>
+                <form class="form-horizontal m-t-20" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">UID</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="uid" id="uid">
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Nombre</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido('nombre')}" id="nombre">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Nombre corto</span>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <input type="text" class="form-control" formControlName="nombrecorto" [ngClass]="{'is-invalid' : campoNoValido('nombrecorto')}" id="nombrecorto">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Curso</span>
+                        </div>
+                        <div class="form-group col-lg-5 col-md-12">
+                            <select class="form-control" [ngClass]="{'is-invalid' : campoNoValido('curso')}" formControlName="curso">
+                                <option value="">Seleccione un curso</option>
+                                <option *ngFor="let curso of cursos" value="{{curso.uid}}">
+                                    {{curso.nombrecorto}}
+                                </option>
+                            </select>
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-primary m-r-20 " type="submit " id="enviar" [disabled]="datosForm.pristine">Enviar</button>
+                            <button class="btn btn-danger " type="button" (click)="cancelar()" id="cancelar" [disabled]="datosForm.pristine">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-10 mx-auto p-0" *ngIf="!esnuevo()">
+        <div id="menu-tabs">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link micursor" [ngClass]="{'active':tab===1}" (click)="tab=1">Asignar profesores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link micursor" [ngClass]="{'active':tab===2}" (click)="tab=2">Matricular alumnos</a>
+                </li>
+            </ul>
+        </div>
+        <!--     Asignar profesores     -->
+        <div id="asignar-profesores" *ngIf="tab===1">
+            <app-selectusers [rol]="'ROL_PROFESOR'" [selected]="profesores" (nuevaLista)="guardarLista($event,'profesores')"></app-selectusers>
+        </div>
+
+        <!--     Matricular alumnos     -->
+        <div id="matricular-alumnos" *ngIf="tab===2">
+
+            <app-selectusers [rol]="'ROL_ALUMNO'" [selected]="alumnos" (nuevaLista)="guardarLista($event,'alumnos')"></app-selectusers>
+        </div>
+    </div>
+</div>

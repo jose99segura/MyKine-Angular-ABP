@@ -1,0 +1,33 @@
+ 
+
+login       --> app-root --> app-foother + router-outlet 
+                                           --> (auth-layout) router-outlet 
+                                                             --> (login)
+recovery    --> app-root --> app-foother + router-outlet 
+                                           --> (auth-layout) router-outlet 
+                                                             --> (recovery)
+
+perfil      --> app-root --> app-foother + router-outlet 
+                                           --> (admin-layout) app-sidebar app-navbar router-outlet 
+                                                                                     --> (perfil) 
+
+/admin/dashboard                --> app-root --> app-foother + router-outlet 
+                                                                --> (admin-layout) app-sidebar app-navbar router-outlet 
+                                                                                                          --> (perfil) 
+/admin/usuarios                 --> app-root --> app-foother + router-outlet 
+                                                                --> (admin-layout) app-sidebar app-navbar router-outlet 
+                                                                                                          --> (usuarios) 
+/admin/usuarios/usuario         --> app-root --> app-foother + router-outlet 
+                                                                --> (admin-layout) app-sidebar app-navbar router-outlet 
+                                                                                                          --> (usuario) 
+/admin/cursos
+/admin/cursos/curso
+/admin/asignaturas
+/admin/asingaturas/asignatura
+...
+/prof/dashboard
+...
+/alu/dashboard
+...
+
+

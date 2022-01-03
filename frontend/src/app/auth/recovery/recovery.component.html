@@ -1,0 +1,27 @@
+<div id="recoverform">
+    <div class="text-center p-t-20 p-b-20">
+        <span class="db"><img src="../../assets/images/LogoMyKine.png" alt="logo" /></span>
+    </div>
+    <div class="text-center">
+        <span class="text-white">Introduce tu email y te enviaremos las instrucciones para recuperar la contraseña.</span>
+    </div>
+    <div class="row m-t-20">
+        <!-- Form -->
+        <form class="col-12" action="index.html">
+            <!-- email -->
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="fa fa-at"></i></span>
+                </div>
+                <input type="text" class="form-control form-control-lg" placeholder="Email Address" aria-label="Username" aria-describedby="basic-addon1">
+            </div>
+            <!-- pwd -->
+            <div class="row m-t-20 p-t-20 border-top border-secondary">
+                <div class="col-12">
+                    <button class="btn btn-info" id="to-login" type="button" routerLink="/login"><i class="fa fa-key m-r-5"></i> Volver a login</button>
+                    <button class="btn btn-success float-right" type="button" name="action" (click)="recover()">Recuperar</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

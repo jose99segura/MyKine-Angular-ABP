@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-body row">
+        <div class="col-sm-5  ">
+            <h5>Seleccionados <span class="badge badge-pill badge-success">{{listaSelected.length}}</span></h5>
+            <div class="milista">
+                <div class="m-l-10 m-b-10" *ngFor="let user of listaSelected;let idx = index">
+                    <i class="fa fa-minus-circle text-danger m-r-5 micursor" (click)="quitar(idx, true)"></i> {{user.nombre}}
+                </div>
+                <div *ngIf="listaSelected.length===0">(No hay elementos)</div>
+            </div>
+        </div>
+        <div class="col-sm-2  miauto  ">
+            <div class="text-center ">
+
+                <button class="btn btn-success" (click)="agregarTodos()">
+                    <i class="fas fa-arrow-left d-block d-lg-none d-xl-none m-r-5"></i>
+                    <span class="d-none d-lg-block d-xl-block"><i class="fas fa-arrow-left m-r-5"></i>Agregar<br>todos</span>
+                </button>
+            </div>
+            <div class="text-center" (click)="quitarTodos()">
+                <button class="btn btn-danger m-t-10">
+                    <i class="fas fa-arrow-right d-block d-lg-none d-xl-none m-r-5"></i>
+                    <span class="d-none d-lg-block d-xl-block"><i class="fas fa-arrow-right m-r-5"></i>Quitar<br> todos</span>
+                </button>
+            </div>
+        </div>
+        <div class="col-sm-5  ">
+            <h5>Posibles <span class="badge badge-pill badge-danger">{{listaUsers.length}}</span></h5>
+            <div class="milista">
+                <div class=" miitem" *ngFor="let user of listaUsers;let idx = index">
+                    <i class="fa fa-plus-circle text-success m-r-5 micursor" (click)="agregar(idx, true)"></i> {{user.nombre}}
+                </div>
+                <div *ngIf="listaUsers.length===0">(No hay elementos)</div>
+            </div>
+
+        </div>
+
+    </div>

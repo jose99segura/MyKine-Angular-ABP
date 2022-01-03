@@ -1,0 +1,47 @@
+<!-- ============================================================== -->
+<!-- Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->
+<aside class="left-sidebar" data-sidebarbg="skin5">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <ul id="sidebarnav" class="p-t-30">
+
+
+                <li class="sidebar-item" *ngFor="let item of menu">
+                    <!-- Entradas directas-->
+                    <div *ngIf="!item.sub">
+                        <a class="sidebar-link waves-effect waves-dark sidebar-link" [routerLink]="item.url" aria-expanded="false">
+                            <i class="{{item.icono}} m-r-5"></i>
+                            <span class="hide-menu">{{item.titulo}}</span>
+                        </a>
+                    </div>
+
+                    <!-- Entradas con sub-menus -->
+                    <div *ngIf="item.sub">
+                        <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                            <i class="{{item.icono}}"></i>
+                            <span class="hide-menu">{{item.titulo}} </span>
+                        </a>
+                        <ul aria-expanded="false" class="collapse  first-level">
+                            <li class="sidebar-item" *ngFor="let subitem of item.subMenu">
+                                <a routerLink="{{subitem.url}}" class="sidebar-link">
+                                    <i class="{{subitem.icono}}"></i>
+                                    <span class="hide-menu"> {{subitem.titulo}} </span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </div>
+
+                </li>
+            </ul>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
+<!-- ============================================================== -->
+<!-- End Left Sidebar - style you can find in sidebar.scss  -->
+<!-- ============================================================== -->

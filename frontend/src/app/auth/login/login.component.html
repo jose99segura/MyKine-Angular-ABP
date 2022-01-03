@@ -1,0 +1,51 @@
+<div id="loginform">
+    <div class="text-center p-t-20 p-b-20">
+        <span class="db"><img src="../../assets/images/LogoMyKine.png" alt="logo" /></span>
+    </div>
+    <!-- Form -->
+    <form class="form-horizontal m-t-20" id="loginform" (ngSubmit)="login()" [formGroup]="loginForm">
+        <div class="row p-b-30">
+            <div class="col-12">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-success text-white" id="basic-addon1"><i class="fa fa-user"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" formControlName="email" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" required="">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-warning text-white" id="basic-addon2"><i class="fa fa-pen"></i></span>
+                    </div>
+                    <input type="text" class="form-control form-control-lg" formControlName="password" placeholder="Password" aria-label="Password" aria-describedby="basic-addon1" required="">
+                </div>
+                <div class="input-group mb-3">
+                    <div class="custom-control custom-checkbox mr-sm-2">
+                        <input type="checkbox" class="custom-control-input" formControlName="remember" id="customControlAutosizing1">
+                        <label class="custom-control-label text-light" for="customControlAutosizing1">Recuerdame</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-12">
+            <div id="my-signin2"></div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <p class="text-danger" *ngIf="!campoValido('email')">El usuario obligatorio y debe ser un email</p>
+                <p class="text-danger" *ngIf="!campoValido('password')">El campo contraseña es obligatorio</p>
+            </div>
+        </div>
+        <div class="row border-top border-secondary">
+            <div class="col-12">
+                <div class="form-group">
+                    <div class="p-t-20">
+                        <button class="btn btn-info" id="to-recover" type="button" [disabled]="waiting" routerLink="/recovery"><i class="fa fa-lock m-r-5"></i>Recuperar contraseña</button>
+                        <button class="btn btn-success float-right" type="submit" [disabled]="waiting"><i class="fas fa-spinner fa-spin m-r-10" *ngIf="waiting"></i>Login</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

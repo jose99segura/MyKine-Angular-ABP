@@ -1,0 +1,173 @@
+<!-- Cabecera y botón volver -->
+<div class="d-flex">
+    <div class="card col-12">
+        <div class="card-body p-b-5 p-t-5">
+            <div class="row">
+                <div class="col-2 p-0">
+                    <button class="btn btn-primary" routerLink="/prof/asignaturas">
+                        <div class="d-none d-sm-none d-md-block"><i class="fa fa-angle-left mr-2"></i>Volver</div>
+                        <div class="d-sm-block d-md-none"><i class="fa fa-angle-left mr-2"></i></div>
+                    </button>
+                </div>
+                <div class="col-10 text-right ">
+                    <h4>
+                        {{asignatura.curso.nombrecorto}}
+                        <i class="fa fa-angle-double-right"></i> {{asignatura.nombrecorto}}
+                        <i class="fa fa-angle-double-right"></i> {{asignatura.nombre}}
+                    </h4>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-end mb-4 ">
+    <button class="btn btn-primary" type="button" (click)="nuevo();" data-toggle="modal" data-target="#modalformulario" data-whatever="Nuevo"><i class="fa fa-plus m-l-5"></i> Nuevo</button>
+</div>
+
+
+
+<div class="modal fade" id="modalformulario" data-backdrop="static" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form [formGroup]="datosForm">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{tituloModal}}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <!-- Títutlo -->
+                    <div class="form-group">
+                        <label>Título del item</label>
+                        <i class="fa fa-info-circle ml-1 gris" data-toggle="tooltip" title="El nombre del item será visible para los alumnos matriculados en la asignatura"></i>
+                        <input formControlName="nombre" [ngClass]="{'is-invalid' : campoNoValido('nombre')}" type="text" class="form-control col-12" name="nombre" id="nombre">
+                        <div class="invalid-feedback">
+                            El campo es obligatorio
+                        </div>
+                    </div>
+                    <!--  Campos valor y horas estimadas -->
+                    <div class="row">
+                        <div class="form-group col-6">
+                            <label>
+                                <i class="fa fa-heart"></i>
+                                Valor
+                                <i class="fa fa-info-circle ml-1 gris" data-toggle="tooltip" title="Valor del item"></i>
+                            </label>
+                            <input formControlName="valor" type="number" class="form-control " name="valor" id="valor">
+                        </div>
+                        <div class="form-group col-6">
+                            <label>
+                                <i class="fa fa-hourglass mr-1"></i>
+                                Horas
+                                <i class="fa fa-info-circle ml-1 gris" data-toggle="tooltip" title="Horas estimadas para realizar el item"></i>
+                            </label>
+                            <input formControlName="horasEstimadas" type="number" class="form-control" name="horasestimadas" id="horasestimadas">
+                        </div>
+                    </div>
+                    <!-- Absoluta/Relativa y Tipo:MIN/OBL/OPT -->
+
+                    <div class="form-group ">
+                        <label>Tipo horas:<i class="fa fa-info-circle ml-1 gris" data-toggle="tooltip" title="Absolutas: las horas estimadas son en total con independencia del número de alumnos en el grupo. Por alumno: cada alumno del grupo debería aportar el número de horas estimadas en el item"></i></label>
+                        <span class="ml-4">
+                            <input type="radio" value="true" formControlName="horasAbsolutas" id="">
+                            <i class="fa fa-user mx-1"></i>Absolutas
+                        </span>
+                        <span class="ml-4">
+                            <input type="radio" value="false" formControlName="horasAbsolutas">
+                            <i class="fa fa-users mx-1"></i>Por alumno
+                        </span>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Tipo item:
+                            <i class="fa fa-info-circle gris" data-toggle="tooltip" title="Mínimo: el profesor debe dar por superado el item para aprobar la asignatura. Obligatorio: la nota del item forma parte de la nota de la asignatura pero no es obligatoria superarlo. Opcional: nota adicional (permite obtener más de 10)"></i>
+                        </label>
+                        <span class="ml-3">
+                            <input type="radio" value="MIN" formControlName="tipo">
+                            <i class="fa fa-hand-rock mx-1 text-warning"></i>Mínimo
+                        </span>
+
+                        <span class="ml-2">
+                            <input type="radio" value="OBL" formControlName="tipo">
+                            <i class="fa fa-hand-point-right mx-1 text-success"></i>
+                            Obligatorio
+                        </span>
+
+                        <span class="ml-2">
+                            <input type="radio" value="OPT" formControlName="tipo">
+                            <i class="fa fa-thumbs-up mx-1 text-info"></i>
+                            Opcional
+                        </span>
+                    </div>
+                    <!-- Descripción -->
+
+                    <div class="form-group">
+                        <label for="">
+                            Descripción
+                            <i class="fa fa-info-circle ml-1 gris" data-toggle="tooltip" title="Describa el item evaluable lo más detalladamente posible, incluya enlaces a documentos exteriores o referencias"></i>
+                        </label>
+                        <textarea formControlName="descripcion" class="form-control" name="" id="" rows="5"></textarea>
+                    </div>
+                    <!-- Botones -->
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary mr-2" type="button" (click)="guardar();"><i class="fa fa-save mr-2"></i>Guardar</button>
+                    <button class="btn btn-danger" type="button" data-dismiss="modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="alert alert-primary text-center" *ngIf="loading">
+    <h4 class="alert-heading">Cargando!</h4>
+    <i class="fa fa-spin fa-spinner fa-3x"></i>
+    <p>Por favor, espere</p>
+</div>
+
+
+<div class="d-flex flex-column">
+    <div [dragula]="listadd" [(dragulaModel)]="listaItems" class="">
+        <div *ngFor="let item of listaItems;let idx = index">
+            <div class="card">
+                <div class="card-body ddcursor">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <span class="handle"><i id="icon{{idx}}" class="fa fa-arrows-alt mr-2"></i></span>
+                            <a data-toggle="collapse" href="#des" aria-expanded="false" (click)="accion(idx)" href="#des{{idx}}">
+                                {{listaItems[idx].nombre}}
+                                <i class="ml-1 fa fa-angle-double-down" id="icono{{idx}}"></i></a>
+                        </div>
+
+                        <div class="col-lg-5 d-flex justify-content-end">
+                            <div>
+
+                                <i class="fa fa-heart mr-1"></i>{{listaItems[idx].valor}}
+                                <i class="fa fa-hourglass ml-1 mr-1"></i>{{listaItems[idx].horasEstimadas}}h.
+                                <i class="fa fa-user ml-1 mt-1" *ngIf="listaItems[idx].horasAbsolutas"></i>
+                                <i class="fa fa-users ml-1 mt-1" *ngIf="!listaItems[idx].horasAbsolutas"></i>
+                                <i class="ml-2 fa mr-4" [ngClass]="iconTipo(idx)"></i>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary mr-2" (click)="editar(idx)" data-toggle="modal" data-target="#modalformulario" data-whatever="Editar Item"><i class="fa fa-pen mr-1"></i>Editar</button>
+                            </div>
+                            <div>
+                                <button class="btn btn-danger" (click)="eliminar(idx)"><i class="fa fa-trash mr-1"></i>Eliminar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse multi-collapse" id="des{{idx}}">
+                        {{listaItems[idx].descripcion}}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

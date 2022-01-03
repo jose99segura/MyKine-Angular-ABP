@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="mr-2" *ngIf="texto">
+        <div role="status" aria-live="polite" *ngIf="totalRegistros > 0 ">
+            Mostrando {{registroActual}} - {{registroHasta}} de {{totalRegistros}}
+        </div>
+        <div role="status" aria-live="polite" *ngIf="totalRegistros <= 0">
+            No hay registros
+        </div>
+    </div>
+    <nav aria-label="Paginación">
+        <ul class="pagination justify-content-end">
+            <li class="page-item" [ngClass]="{'disabled' : paginaActual<=1}" (click)="cambiaPagina(1)">
+                <span class="page-link"><i class="fa fa-angle-double-left"></i></span>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled' : paginaActual<=1}" (click)="cambiaPagina(paginaActual - 1)">
+                <span class="page-link"><i class="fa fa-angle-left"></i></span>
+            </li>
+            <li class="page-item" [ngClass]="{'active': numeropagina===paginaActual}" *ngFor="let numeropagina of listaPaginas">
+                <span class="page-link" (click)="cambiaPagina(numeropagina)">
+                        {{numeropagina}}
+                    </span>
+            </li>
+
+            <li class="page-item" [ngClass]="{'disabled' : paginaActual>=ultimaPagina}" (click)="cambiaPagina(paginaActual + 1)">
+                <span class="page-link"><i class="fa fa-angle-right"></i></span>
+            </li>
+            <li class="page-item" [ngClass]="{'disabled' : paginaActual>=ultimaPagina}" (click)="cambiaPagina(ultimaPagina)">
+                <span class="page-link"><i class="fa fa-angle-double-right"></i></span>
+            </li>
+        </ul>
+    </nav>
+</div>

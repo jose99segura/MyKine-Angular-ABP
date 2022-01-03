@@ -1,0 +1,133 @@
+<div class="animate__animated animate__fadeInRight animate__faster">
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <div>
+                    <button class="btn btn-info m-r-10" [disabled]="!datosForm.pristine" routerLink="/admin/usuarios">Volver</button>
+                    <div class="float-right">
+                        <button class="btn btn-primary" [disabled]="(!datosForm.pristine || (esnuevo()))" (click)="nuevo()">Nuevo<i class="fa fa-plus m-l-10"></i></button>
+                    </div>
+                </div>
+                <form class="form-horizontal m-t-20" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">UID</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="uid" id="uid">
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Nombre y apellidos</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="nombre_apellidos" [ngClass]="{'is-invalid' : campoNoValido('nombre_apellidos')}" id="nombre_apellidos">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <!-- <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Apellidos</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="text" class="form-control" formControlName="apellidos" [ngClass]="{'is-invalid' : campoNoValido('apellidos')}" id="apellidos">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div> -->
+                    <div class=" row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right ">
+                            <span class=" ">Email</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12 ">
+                            <input type="text " class="form-control " formControlName="email" [ngClass]="{ 'is-invalid' : campoNoValido( 'email')} " id="email ">
+                            <div class="invalid-feedback ">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 col-md-12 text-lg-right">
+                            <span class="">Password</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12">
+                            <input type="password" class="form-control " formControlName="password" [ngClass]="{'is-invalid' : campoNoValido('password')}" id="password">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class=" row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right ">
+                            <span class=" ">Rol</span>
+                        </div>
+                        <div class="col-lg-8 col-md-12 ">
+                            <select class="select2 form-control custom-select" formControlName="rol" [ngClass]="{'is-invalid' : campoNoValido('rol')}" style="width: 100%; height:36px;" id="rol">
+                                <option value="ROL_ADMIN">Administrador / Adminsitradora</option>
+                                <option value="ROL_FISIO" selected>Fisioterapeuta</option>
+                                <option value="ROL_CLIENTE">Cliente</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                El campo es obligatorioas
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10 ">
+                        <div class="col-lg-3 col-md-12 text-lg-right ">
+                            <span class=" ">Activo</span>
+                        </div>
+                        <div class=" ">
+                            <div>
+                                <div class="custom-control custom-checkbox ml-2">
+                                    <input type="checkbox" class="custom-control-input" formControlName="activo" [ngClass]="{'is-invalid' : campoNoValido('activo')}" id="activo" checked>
+                                    <label class="custom-control-label" for="activo">marcar para activar / desmarcar para desactivar</label>
+                                    <div class="invalid-feedback">
+                                        El campo es obligatorioas
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-primary m-r-20 " type="submit " id="enviar" [disabled]="datosForm.pristine">Enviar</button>
+                            <button class="btn btn-danger " type="button" (click)="cancelar()" id="cancelar" [disabled]="datosForm.pristine">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center" *ngIf="!enablepass">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <h5>Cambiar contraseña</h5>
+                <form class="form-horizontal m-t-20" [formGroup]="nuevoPassword" (ngSubmit)="cambiarPassword()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-3 text-lg-right">
+                            <span class="">Nueva contraseña</span>
+                        </div>
+                        <div class="col-lg-5 ">
+                            <input type="password" class="form-control" formControlName="password" id="uid">
+                        </div>
+                        <div class="text-success col-lg-3 text-lg-left text-right animate__animated animate__faster" *ngIf="(showOKP)" [ngClass]="{'animate__fadeIn': (nuevoPassword.pristine && showOKP), 'animate__fadeOut': (!nuevoPassword.pristine)   }">
+                            Actualizada
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-warning m-r-20" type="submit " id="enviarpassword" [disabled]="nuevoPassword.pristine || nuevoPassword.get('password').value.length===0"><i class="fa fa-key m-r-10"></i>Cambiar contraseña</button>
+                            <button class="btn btn-danger " (click)="nuevoPassword.reset();showOKP = false;" type="button" id="cancelar" [disabled]="nuevoPassword.pristine || nuevoPassword.get('password').value.length===0">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

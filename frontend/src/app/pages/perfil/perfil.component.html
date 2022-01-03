@@ -1,0 +1,125 @@
+<div class="animate__animated animate__fadeInDown animate__faster">
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">Datos del perfil</h5>
+                <!--                 <div class="text-success text-right animate__animated animate__faster" [ngClass]="{'animate__fadeIn': showOKD && datosForm.pristine, 'animate__fadeOut' : !(showOKD && datosForm.pristine)}">Datos actualizados</div>
+ -->
+                <div class="text-center" style="widht: 200px;">
+                    <img [src]="imagenUrl" class="img-thumbnail rounded-circle" width="200">
+                </div>
+
+                <div class="">
+                    <form class="form-horizontal m-t-20" [formGroup]="datosForm" (ngSubmit)="enviar()">
+                        <!-- Si comentas nombre_apellido el email si que sale, el error esta aqui -->
+                        <!-- <div class="row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class="">Nombre y apellidos</span>
+                            </div>
+                            <div class="col-lg-8">
+                                <input type="text" class="form-control" formControlName="nombre_apellidos" [ngClass]="{'is-invalid' : campoNoValido('nombre_apellidos')}" id="nombre_apellidos">
+                                <div class="invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div> -->
+                        <!-- <div class="row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class="">Apellidos</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <input type="text" class="form-control" formControlName="apellidos" [ngClass]="{'is-invalid' : campoNoValido('apellidos')}" id="apellidos">
+                                <div class="invalid-feedback">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div> -->
+                        <div class=" row m-t-10 ">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class=" ">Email</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12 ">
+                                <input type="text " class="form-control " formControlName="email" [ngClass]="{ 'is-invalid' : campoNoValido( 'email')} " id="email ">
+                                <div class="invalid-feedback ">
+                                    El campo es obligatorio
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group row m-t-10">
+                            <div class="col-lg-3 text-lg-right">
+                                <span class=" ">Imagen</span>
+                            </div>
+                            <div class="col-lg-8 col-md-12">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" formControlName="imagen" id="fotoperfil" (change)="cambioImagen( $event )">
+                                    <label class="custom-file-label" for="fotoperfil" data-browse="Elegir">{{fileText}}</label>
+
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center m-t-10 ">
+                            <div class="align-content-center ">
+                                <button class="btn btn-primary m-r-20 " type="submit " id="enviar" [disabled]="datosForm.pristine">Enviar</button>
+                                <button class="btn btn-danger " (click)="cargarUsuario()" type="button" id="cancelar" [disabled]="datosForm.pristine">Cancelar</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <div class="card col-md-10">
+            <div class="card-body">
+                <h5 class="card-title">Cambio de centraseña</h5>
+                <div class="text-success text-right animate__animated animate__faster" [ngClass]="{'animate__fadeIn': showOKP && this.datosPassword.pristine, 'animate__fadeOut' : !(showOKP && this.datosPassword.pristine)}">Contraseña actualizada</div>
+                <form class="form-horizontal m-t-20" [formGroup]="datosPassword" (ngSubmit)="cambiarPassword()">
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Contraseña actual</span>
+                        </div>
+                        <div class="col-lg-6">
+                            <input type="password" class="form-control" formControlName="password" [ngClass]="{'is-invalid' : campopNoValido('password')}" id="password">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Nueva contraseña</span>
+                        </div>
+                        <div class="col-lg-6 ">
+                            <input type="password" class="form-control" formControlName="nuevopassword" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword')}" id="nuevopassword">
+                            <div class="invalid-feedback">
+                                El campo es obligatorio
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-t-10">
+                        <div class="col-lg-4 text-lg-right">
+                            <span class="">Repita contraseña</span>
+                        </div>
+                        <div class="col-lg-6 ">
+                            <input type="password" class="form-control" formControlName="nuevopassword2" [ngClass]="{'is-invalid' : campopNoValido('nuevopassword2') || passwordNoIgual()}" id="nuevopassword2">
+                            <div class="invalid-feedback" *ngIf="campopNoValido('nuevopassword2')">
+                                El campo es obligatorio
+                            </div>
+                            <div class="invalid-feedback" *ngIf="passwordNoIgual()">
+                                La contraseña repetida no es igual a la nueva contraseña
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center m-t-10 ">
+                        <div class="align-content-center ">
+                            <button class="btn btn-warning m-r-20" type="submit " id="enviarpassword" [disabled]="datosPassword.pristine"><i class="fa fa-key m-r-10"></i>Cambiar contraseña</button>
+                            <button class="btn btn-danger " (click)="cancelarPassword()" type="button" id="cancelarpw" [disabled]="datosPassword.pristine">Cancelar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
